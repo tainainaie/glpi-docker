@@ -1,7 +1,7 @@
 # glpi-docker
 Repositório contém o passo a passo da instalação do GLPI utilizando Docker Compose.
 
-# GLPI com Docker Compose
+# GLPI no Docker com Docker Compose
 Guia para instalar o GLPI com Docker
 
 ## Instalando o Docker
@@ -89,9 +89,9 @@ su - ${USER}
 
 Instalação e configuração do docker concluída, próximo passo instalar o docker compose.
 
-## Docker Compose
+## Instalar o Docker Compose
 
-## 1º Criar um diretório
+### 1º Criar um diretório
 
 Criar um diretório para o docker compose dentro do docker (diretório oculto por padrão).
 
@@ -99,7 +99,7 @@ Criar um diretório para o docker compose dentro do docker (diretório oculto po
 mkdir -p ~/.docker/cli-plugins/
 ~~~
 
-## 2º Baixar o docker compose
+### 2º Baixar o docker compose
 
 Baixe docker compose a partir do github.
 
@@ -121,5 +121,60 @@ Verique se o docker compose foi instalado de fato
 ~~~
 docker compose --version
 ~~~
+
+Pronto! Docker compose também finalizado.
+
+## Instalar o GLPI
+
+Para implantar com docker compose, você usa os arquivos docker-compose.yml e mariadb.env
+
+Para criar o arquivo digite:
+~~~
+nano docker-compose.yml
+~~~
+
+### mariadb.env
+
+~~~
+MARIADB_ROOT_PASSWORD=diouxx
+MARIADB_DATABASE=glpidb
+MARIADB_USER=glpi_user
+MARIADB_PASSWORD=glpi
+~~~
+
+### docker-compose.yml
+
+~~~
+version: "3.2"
+
+services:
+#MariaDB Container
+  mariadb:
+    image: mariadb:10.7
+    container_name: mariadb
+    hostname: mariadb
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    env_file:
+      - ./mariadb.env
+    restart: always
+
+#GLPI Container
+  glpi:
+    image: diouxx/glpi
+    container_name : glpi
+    hostname: glpi
+    ports:
+      - "80:80"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/www/html/glpi/:/var/www/html/glpi
+    environment:
+      - TIMEZONE=Europe/Brussels
+    restart: always
+~~~
+
+
 
 
