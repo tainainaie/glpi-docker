@@ -87,5 +87,39 @@ Para aplicar a associação do usuário ao grupo docker sem precisar sair do sis
 su - ${USER}
 ~~~
 
-Pronto! Agora já é possível usar o docker para criar containers.
+Instalação e configuração do docker concluída, próximo passo instalar o docker compose.
+
+## Docker Compose
+
+## 1º Criar um diretório
+
+Criar um diretório para o docker compose dentro do docker (diretório oculto por padrão).
+
+~~~
+mkdir -p ~/.docker/cli-plugins/
+~~~
+
+## 2º Baixar o docker compose
+
+Baixe docker compose a partir do github.
+
+~~~
+curl -SL https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+~~~
+
+### 3º Liberar permissões
+
+Após baixar o docker compose é necessário dar as devidas permissões para que o docker compose se torne executável.
+
+~~~
+chmod +x ~/.docker/cli-plugins/docker-compose
+~~~
+### 4º Verificação
+
+Verique se o docker compose foi instalado de fato
+
+~~~
+docker compose --version
+~~~
+
 
