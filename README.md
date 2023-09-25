@@ -136,6 +136,7 @@ sudo nano docker-compose.yml
 Agora cole o scrip abaixo no arquivo criado.
 
 ~~~
+
 version: "3.8"
 
 services:
