@@ -126,7 +126,50 @@ Pronto! Docker compose também finalizado.
 
 ## Instalar o GLPI
 
+#### 1º criar o arquivo docker-compose.yml
 
+Para criar o scrip abaixo execute o comando:
+
+~~~
+sudo nano docker-compose.yml
+~~~
+Agora cole o scrip abaixo no arquivo criado.
+
+version: "3.8"
+
+services:
+#MariaDB Container
+ mariadb:
+      image: mariadb:10.7
+      container_name: mariadb
+      hostname: mariadb
+      environment:
+       - MARIADB_ROOT_PASSWORD=password #sugiro alterar, talvez dê crash
+       - MARIADB_DATABASE=glpidb
+       - MARIADB_USER=glpi_user
+       - MARIADB_PASSWORD=glpi #sugiro alterar a senha
+      networks:
+       - glpi-net
+      volumes:
+       - dbdata:/var/lib/mysql
+
+#GLPI Container
+ glpi:
+      image: diouxx/glpi
+      container_name : glpi
+      hostname: glpi
+      ports:
+       - "80:80"
+      networks:
+       - glpi-net
+
+volumes:
+  dbdata:
+   driver: local
+
+networks:
+  glpi-net:
+   driver: bridge
 
 
 
