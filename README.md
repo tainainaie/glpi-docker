@@ -135,6 +135,7 @@ sudo nano docker-compose.yml
 ~~~
 Agora cole o scrip abaixo no arquivo criado.
 
+~~~
 version: "3.8"
 
 services:
@@ -144,10 +145,10 @@ services:
       container_name: mariadb
       hostname: mariadb
       environment:
-       - MARIADB_ROOT_PASSWORD=password #sugiro alterar, talvez dê crash
+       - MARIADB_ROOT_PASSWORD=password
        - MARIADB_DATABASE=glpidb
        - MARIADB_USER=glpi_user
-       - MARIADB_PASSWORD=glpi #sugiro alterar a senha
+       - MARIADB_PASSWORD=glpi
       networks:
        - glpi-net
       volumes:
@@ -170,6 +171,4 @@ volumes:
 networks:
   glpi-net:
    driver: bridge
-
-
-
+~~~
